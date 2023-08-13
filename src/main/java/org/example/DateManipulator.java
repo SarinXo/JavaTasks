@@ -41,21 +41,20 @@ public class DateManipulator {
 
     public Date increaseDateOfWorkingDays(int workDays) {
         setNormalDate();
-        int normalDays = 0;
         // Если рабочих дней больше 6, то мы 100% захватываем еще 2 нерабочих. Если дальше мы
         // будем брать по 5 дней, то будем захватывать еще по 2 нерабочих дня избавляясь от
         // бОльшей части дней мы ускоряем алгоритм, а остальные дни мы обычным циклом прогоняем
         if (workDays > 5) {
+            int ordinaryDays = 0;
             workDays -= 6;
-            normalDays += 8;
-            normalDays += (workDays / 5) * 7;
+            ordinaryDays += 8;
+            ordinaryDays += (workDays / 5) * 7;
             workDays %= 5;
-            calendar.add(Calendar.DAY_OF_MONTH, normalDays);
+            calendar.add(Calendar.DAY_OF_MONTH, ordinaryDays);
         }
 
         while (workDays != 0) {
-
-            if (isWorkDay()) {
+            if (isNextWorkDay()) {
                 workDays--;
             }
             calendar.add(Calendar.DAY_OF_MONTH, 1);
@@ -64,8 +63,8 @@ public class DateManipulator {
         return calendar.getTime();
     }
 
-    private boolean isWorkDay() {
-        return calendar.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY &&
+    private boolean isNextWorkDay() {
+        return calendar.get(Calendar.DAY_OF_WEEK) != Calendar.FRIDAY &&
                 calendar.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY;
     }
 
@@ -80,13 +79,17 @@ public class DateManipulator {
     private long countWorkingDays(long days) {
         long totalWeeks = days / 7;
         long remainingDays = days % 7;
+        long workingDays = 0;
 
-        long workingDays = totalWeeks * 5;
+        if(totalWeeks>0) {
+            workingDays += totalWeeks * 5;
+            calendar.add(Calendar.DAY_OF_MONTH, (int) totalWeeks * 7);//long -> int alarm
+        }
+
         if (remainingDays > 0) {
-            calendar.add(Calendar.DAY_OF_MONTH,(int)totalWeeks * 7);
 
             while (remainingDays != 0) {
-                if (isWorkDay()) {
+                if (isNextWorkDay()) {
                     workingDays++;
                 }
                 calendar.add(Calendar.DAY_OF_MONTH, 1);

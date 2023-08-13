@@ -19,15 +19,15 @@ public class Main {
         System.out.println("Дата увеличенная на 45 дней: "+ date45);
 
         String beginningOfYear = dateFormat.format(dateManipulator.getDateAtBeginningYear());
-        System.out.println("Дата начала этого года: "+ beginningOfYear);
+        System.out.printf("Дата начала этого года: %s\n", beginningOfYear);
 
         String increaseTenDays = dateFormat.format(dateManipulator.increaseDateOfWorkingDays(10));
-        System.out.println("Дата увеличенная на 10 рабочих дней: "+ increaseTenDays);
+        System.out.printf("Дата увеличенная на %d рабочих дней: \n"+ increaseTenDays, 10);
 
         String dateString2 = in.nextLine();
         Date date2 = dateFormat.parse(dateString2);
         long days = dateManipulator.countWorkDaysBetweenDates(date2);
-        System.out.println("Между этими днями : "+ days);
+        System.out.println("Между этими днями : "+ days + " рабочих дней");
 
     }
 
