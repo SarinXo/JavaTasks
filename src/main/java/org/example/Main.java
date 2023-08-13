@@ -23,7 +23,7 @@ public class Main {
             boolean cBy5 = printIfDivisibleBy('c', c, divider);
 
             if (!aBy5 && !bBy5 && !cBy5) {
-                out.println("нет значений, кратных 5");
+                out.println("\nнет значений, кратных 5");
             }
         }
 
