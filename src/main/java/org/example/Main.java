@@ -22,7 +22,7 @@ public class Main {
         System.out.printf("Дата начала этого года: %s\n", beginningOfYear);
 
         String increaseTenDays = dateFormat.format(dateManipulator.increaseDateOfWorkingDays(10));
-        System.out.printf("Дата увеличенная на %d рабочих дней: \n"+ increaseTenDays, 10);
+        System.out.printf("Дата увеличенная на %d рабочих дней: %s \n", 10, increaseTenDays);
 
         String dateString2 = in.nextLine();
         Date date2 = dateFormat.parse(dateString2);
