@@ -1,57 +1,34 @@
 package org.example;
 
-
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
-import static java.lang.System.out;
-
 public class Main {
-    public static void main(String[] args)  {
-        Scanner in = new Scanner(System.in);
+    private final static Scanner in = new Scanner(System.in);
+    public static void main(String[] args) throws ParseException {
+        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        String dateString = in.nextLine();
+        Date date = dateFormat.parse(dateString);
 
-        out.println("Введите a, b, c");
-        int a, b, c;
-        a = in.nextInt();
-        b = in.nextInt();
-        c = in.nextInt();
+        DateManipulator dateManipulator = new DateManipulator(date);
 
-        {
-            int divider = 5;
+        String date45 = dateFormat.format(dateManipulator.increaseDate(45));
+        System.out.println("Дата увеличенная на 45 дней: "+ date45);
 
-            boolean aBy5 = printIfDivisibleBy('a', a, divider);
-            boolean bBy5 = printIfDivisibleBy('b', b, divider);
-            boolean cBy5 = printIfDivisibleBy('c', c, divider);
+        String beginningOfYear = dateFormat.format(dateManipulator.getDateAtBeginningYear());
+        System.out.println("Дата начала этого года: "+ beginningOfYear);
 
-            if (!aBy5 && !bBy5 && !cBy5) {
-                out.println("нет значений, кратных 5");
-            }
-        }
+        String increaseTenDays = dateFormat.format(dateManipulator.increaseDateOfWorkingDays(10));
+        System.out.println("Дата увеличенная на 10 рабочих дней: "+ increaseTenDays);
 
-        out.printf("Значение от целочисленного деления a на b (результат - целое число) a/b=%d\n", a/b);
+        String dateString2 = in.nextLine();
+        Date date2 = dateFormat.parse(dateString2);
+        long days = dateManipulator.countWorkDaysBetweenDates(date2);
+        System.out.println("Между этими днями : "+ days);
 
-        out.printf("Значение от деления a на b (результат - число с плавающей запятой) a/b=%f\n", (double)a/b);
-
-        out.printf("Значение от деления a на b (результат - число с плавающей запятой), " +
-                "округленного до ближайшего целого в БОЛЬШУЮ сторону a/b=%d\n", (long)Math.ceil((double)a/b));
-
-        out.printf("Значение от деления a на b (результат - число с плавающей запятой), " +
-                "округленного до ближайшего целого в МЕНЬШУЮ сторону a/b=%d\n", (long)Math.floor((double)a/b));
-
-        out.printf("Значение от деления a на b (результат - число с плавающей запятой), " +
-                "округленного до ближайшего целого в МАТ округлением a/b=%d\n", Math.round((double)a/b));
-
-        out.printf("Остаток от деления b на c b%%c=%d\n", b%c);
-
-        out.printf("Наименьшее значение из a и b =%d\n", Math.min(a, b));
-
-        out.printf("Наибольшее значение из b и c =%d\n", Math.max(b, c));
     }
 
-    private static boolean printIfDivisibleBy(char letter, int divisible, int divider){
-        if(divisible % divider == 0){
-            out.printf(letter + "=%d\n", divisible);
-            return true;
-        }
-        return false;
-    }
 }
