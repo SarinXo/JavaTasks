@@ -49,7 +49,7 @@ public class Main {
 
     private static boolean printIfDivisibleBy(char letter, int divisible, int divider){
         if(divisible % divider == 0){
-            out.printf(letter + "=%d\n", divisible);
+            out.printf(letter + "=%d ", divisible);
             return true;
         }
         return false;
