@@ -23,7 +23,7 @@ public class Main {
             boolean cBy5 = printIfDivisibleBy('c', c, divider);
 
             if (!aBy5 && !bBy5 && !cBy5) {
-                out.println("\nнет значений, кратных 5");
+                out.println("нет значений, кратных 5");
             }
         }
 
@@ -49,7 +49,7 @@ public class Main {
 
     private static boolean printIfDivisibleBy(char letter, int divisible, int divider){
         if(divisible % divider == 0){
-            out.printf(letter + "=%d ", divisible);
+            out.printf(letter + "=%d\n", divisible);
             return true;
         }
         return false;
