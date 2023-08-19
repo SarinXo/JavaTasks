@@ -1,71 +1,57 @@
 package org.example;
 
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Objects;
 import java.util.Scanner;
 
+import static java.lang.System.out;
+
 public class Main {
-    private static final Scanner in = new Scanner(System.in);
     public static void main(String[] args)  {
-        task4dot1();
-        task4dot2();
-        task4dot3();
-    }
+        Scanner in = new Scanner(System.in);
 
-    private static void task4dot1(){
-        System.out.println("Введите строку");
-        String str1 = in.nextLine();
-        System.out.println("Введите подстроку");
-        String subStr1 = in.nextLine();
-        System.out.printf("Подстрока \"%s\" встречается в строке \"%s\" %d раз\n",
-                 subStr1, str1, countOccurrences(str1, subStr1));
-    }
+        out.println("Введите a, b, c");
+        int a, b, c;
+        a = in.nextInt();
+        b = in.nextInt();
+        c = in.nextInt();
 
-    private static int countOccurrences(String string, String subString){
-        int count = 0;
-        int index = string.indexOf(subString);
-        int subStringLength = subString.length();
+        {
+            int divider = 5;
 
-        while (index != -1){
-            count++;
-            index = string.indexOf(subString, (index + subStringLength));
+            boolean aBy5 = printIfDivisibleBy('a', a, divider);
+            boolean bBy5 = printIfDivisibleBy('b', b, divider);
+            boolean cBy5 = printIfDivisibleBy('c', c, divider);
+
+            if (!aBy5 && !bBy5 && !cBy5) {
+                out.println("нет значений, кратных 5");
+            }
         }
 
-        return count;
+        out.printf("Значение от целочисленного деления a на b (результат - целое число) a/b=%d\n", a/b);
+
+        out.printf("Значение от деления a на b (результат - число с плавающей запятой) a/b=%f\n", (double)a/b);
+
+        out.printf("Значение от деления a на b (результат - число с плавающей запятой), " +
+                "округленного до ближайшего целого в БОЛЬШУЮ сторону a/b=%d\n", (long)Math.ceil((double)a/b));
+
+        out.printf("Значение от деления a на b (результат - число с плавающей запятой), " +
+                "округленного до ближайшего целого в МЕНЬШУЮ сторону a/b=%d\n", (long)Math.floor((double)a/b));
+
+        out.printf("Значение от деления a на b (результат - число с плавающей запятой), " +
+                "округленного до ближайшего целого в МАТ округлением a/b=%d\n", Math.round((double)a/b));
+
+        out.printf("Остаток от деления b на c b%%c=%d\n", b%c);
+
+        out.printf("Наименьшее значение из a и b =%d\n", Math.min(a, b));
+
+        out.printf("Наибольшее значение из b и c =%d\n", Math.max(b, c));
     }
 
-    private static void task4dot2(){
-        System.out.println("Введите строку, которую нужно зацензурить");
-        String str2 = in.nextLine();
-        String censorStr2 = str2.replaceAll("кака|бяка", "'вырезано цензурой'");
-        System.out.printf("итоговая строка: %s\n", censorStr2);
-    }
-
-    private static void task4dot3(){
-        SimpleDateFormat fromThisFormat = new SimpleDateFormat("dd.MM.yyyy");
-        SimpleDateFormat inThisFormat = new SimpleDateFormat("yyyy-MM-dd");
-        System.out.println("Введите дату в формате dd.MM.yyyy");
-        String dateString = in.nextLine();
-        Date date = tryParseDate(dateString, fromThisFormat);
-        String convertedDateString = inThisFormat.format(date);
-        System.out.println("Итоговая дата в формате yyyy-MM-dd: " + convertedDateString);
-    }
-
-    private static Date tryParseDate(String dateString, SimpleDateFormat fromThisFormat){
-        Date parsingDate = null;
-        try{
-            parsingDate = fromThisFormat.parse(dateString);
-        }catch (Exception e){
-            System.out.println("Не удалось преобразовать дату! Проверьте корректность данных!");
+    private static boolean printIfDivisibleBy(char letter, int divisible, int divider){
+        if(divisible % divider == 0){
+            out.printf(letter + "=%d\n", divisible);
+            return true;
         }
-        if(Objects.isNull(parsingDate))
-            throw new NullPointerException();
-
-        return parsingDate;
+        return false;
     }
-
-
-
 }
