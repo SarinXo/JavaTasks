@@ -1,17 +1,15 @@
 package org.example;
 
-
-import org.example.educate.Learner;
-import org.example.educate.Student;
-
 import java.util.Scanner;
-
-import static java.lang.System.out;
+import java.util.stream.LongStream;
 
 public class Main {
+    private static final Scanner in = new Scanner(System.in);
     public static void main(String[] args)  {
-        Learner student = new Student();
-        student.learn();
+        System.out.println("Введите 2 числа");
+        long a = in.nextLong();
+        long b = in.nextLong();
+        System.out.println(LongStream.range(a, b).sum());
     }
 
 }
